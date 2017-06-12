@@ -18,13 +18,13 @@ on early-init
     symlink /storage/sdcard1 /mnt/extSdCard
 
     mkdir /efs 0771 radio system
-    
+
 
 on init
     loglevel 8
     mkdir /preload 0771 system system
     mkdir /NVM 0775 system system
-    
+
     setprop ro.board.platform mrvl
 
 # For debugging:
@@ -33,7 +33,7 @@ on init
     setprop ro.debuggable=1
 
     write /proc/sys/vm/legacy_va_layout 1
-    
+
 # Right now vendor lives on the same filesystem as system,
 # but someday that may change.
     symlink /data/vendor /vendor
@@ -49,11 +49,11 @@ on init
     chown system system /sys/class/timed_output/vibrator/enable
     chown system system /sys/class/backlight/panel/auto_brightness
 
-    # for KeyLED	
+    # for KeyLED
     chown system system /sys/class/sec/sec_touchkey/brightness
     chmod 0664 /sys/class/sec/sec_touchkey/brightness
-    
-    # for TSP cmd	
+
+    # for TSP cmd
     chown system system /sys/class/sec/tsp/cmd
     chmod 0664 /sys/class/sec/tsp/cmd
 
@@ -69,7 +69,7 @@ on init
     chmod 0664 /sys/class/mdnie/mdnie/negative
     chown system system /sys/class/mdnie/mdnie/cabc
     chmod 0664 /sys/class/mdnie/mdnie/cabc
-    
+
     # for sd8xxx wifi and bluetooth power
     chown system system /sys/class/rfkill/rfkill0/state
     chown system system /sys/class/rfkill/rfkill1/state
@@ -127,7 +127,7 @@ on init
     chown system system /proc/driver/pm800_headset
 
     #lcd for dip channel
-    chmod 664 /sys/devices/platform/pxa168-fb.0/lcd    
+    chmod 664 /sys/devices/platform/pxa168-fb.0/lcd
     chown system system /sys/devices/platform/pxa168-fb.0/lcd
 
     chmod 440 /sys/devices/platform/pxa168-fb.0/power/runtime_status
@@ -135,7 +135,7 @@ on init
 
     #cpu&ddr for dip channel
     chmod 664 /sys/devices/platform/devfreq-ddr/devfreq/devfreq-ddr/min_freq
-    chmod 664 /sys/devices/platform/devfreq-ddr/devfreq/devfreq-ddr/max_freq   
+    chmod 664 /sys/devices/platform/devfreq-ddr/devfreq/devfreq-ddr/max_freq
     chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
     chmod 664 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
     chown system system /sys/devices/platform/devfreq-ddr/devfreq/devfreq-ddr/min_freq
@@ -218,7 +218,7 @@ on post-fs
 
     chown radio system /efs
     chmod 0771 /efs
-    
+
     symlink /dev/block/mmcblk0p7 /dev/block/param
 
 on post-fs-data
@@ -254,7 +254,7 @@ on post-fs-data
 # Create radio folder for IMEI file
     mkdir /data/misc/radio 0775 radio system
     chmod 0775 /data/misc/radio
-    
+
     mkdir /efs/imei 0775 system system
     chmod 0775 /efs/imei
 
@@ -272,12 +272,12 @@ on post-fs-data
     chmod 0775 /data/anr
 
 
-    # save OMA DB, when upgrading from GB to ICS    
+    # save OMA DB, when upgrading from GB to ICS
     mkdir /data/system/databases 0771 system system
     copy /data/data/com.sec.android.providers.drm/databases/drmdatabase.db /data/system/databases/drmdatabase.db
     chown system system /data/system/databases/drmdatabase.db
-    chmod 0774 /data/system/databases/drmdatabase.db	
-    
+    chmod 0774 /data/system/databases/drmdatabase.db
+
     # DRM directory creation
     mkdir /system/etc/security/.drm 0775
     chown root root /system/etc/security/.drm
@@ -333,8 +333,8 @@ on boot
     chmod 0660 /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
 
 # Permissions for bluetooth
-    setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"   
-    chown bluetooth bluetooth ro.bt.bdaddr_path 
+    setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
+    chown bluetooth bluetooth ro.bt.bdaddr_path
 
 # Audio (Earjack) KSND
     chown system radio /sys/class/audio/earjack/select_jack
@@ -399,7 +399,7 @@ on boot
     chmod 0664 /sys/class/sensors/light_sensor/raw_data
     chmod 0664 /sys/class/sensors/light_sensor/lux
 
-    chown system radio /efs/prox_cal 
+    chown system radio /efs/prox_cal
     chmod 0666 /efs/prox_cal
 
 #magnetic sensor
@@ -454,7 +454,7 @@ on boot
     chown system radio /sys/class/input/input3/update
     chown system radio /sys/class/input/input3/range
     chown system radio /sys/class/input/input3/bandwidth
-    
+
     chmod 0664 /sys/class/input/input3/raw_data
     chmod 0664 /sys/class/input/input3/value
     chmod 0664 /sys/class/input/input3/fast_calibration_x
@@ -472,7 +472,7 @@ on boot
     chown system radio /sys/class/sensors/accelerometer_sensor/calibration
     chown system radio /sys/class/sensors/accelerometer_sensor/name
     chown system radio /sys/class/sensors/accelerometer_sensor/vendor
-    
+
     chmod 0664 /sys/class/sensors/accelerometer_sensor/raw_data
     chmod 0664 /sys/class/sensors/accelerometer_sensor/raw_value
     chmod 0664 /sys/class/sensors/accelerometer_sensor/mode
@@ -490,7 +490,7 @@ on boot
     chown system system /sys/devices/virtual/camera/rear/rear_flash
     chmod 0664 /sys/devices/platform/Sec_BattMonitor/power_supply/battery/reset_soc
     chmod 0664 /sys/devices/platform/Sec_BattMonitor/fuelgaic
-    chmod 0664 /sys/kernel/debug/pxa/cp15	
+    chmod 0664 /sys/kernel/debug/pxa/cp15
     chmod 0664 /sys/kernel/debug/pxa/stat/vpu_dc_stat
     chmod 0664 /sys/kernel/debug/pxa/stat/cpu_dc_stat
     chmod 0664 /sys/kernel/debug/pxa/l2
@@ -666,17 +666,17 @@ on boot
     #~ class main
     #~ user root
     #~ group system radio inet net_raw
- 
+
 #~ service KIES-daemon /system/bin/kiesexe
     #~ class main
     #~ user root
     #~ group system radio inet net_raw
- 
+
 #~ service SMD-daemon /system/bin/smdexe
     #~ class main
     #~ user root
     #~ group system radio inet net_raw
- 
+
 #~ service DTT-daemon /system/bin/dttexe
     #~ class main
     #~ user root
@@ -686,7 +686,7 @@ on boot
     #~ class main
     #~ user root
     #~ group system radio inet net_raw
-     
+
 #~ service mobex-daemon /system/bin/npsmobex
     #~ class main
     #~ user system
@@ -729,8 +729,8 @@ on boot
 #~ # let FMRadioServer drop uid to system with the right linux capabilities
 #~ service FMRadiod /system/bin/FMRadioServer
     #~ class main
-    
-    
+
+
 # LPM (from P3100)
 on property:ro.bootmode=charger
     mount ext4 /dev/block/platform/omap/omap_hsmmc.1/by-name/FACTORYFS /system wait ro
