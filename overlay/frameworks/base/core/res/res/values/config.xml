@@ -81,7 +81,7 @@
     </integer-array>
 
     <!-- Is the device LTE capable -->
-    <bool name="config_lte_capable">false</bool>
+    <!--bool name="config_lte_capable">false</bool-->
 
     <!-- This device allows sms service. -->
     <bool name="config_sms_capable">false</bool>
@@ -208,7 +208,7 @@
     <integer name="config_deviceHardwareWakeKeys">65</integer>
 
     <!-- Performance profiles -->
-    <string name="config_perf_profile_prop">sys.perf.profile</string>
-    <string name="config_perf_profile_default_entry">1</string>
+    <!--string name="config_perf_profile_prop">sys.perf.profile</string-->
+    <!--string name="config_perf_profile_default_entry">1</string-->
 
 </resources>
