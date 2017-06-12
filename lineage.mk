@@ -12,7 +12,7 @@ $(call inherit-product, vendor/cm/config/common_full_phone.mk)
 
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := lt023g
-PRODUCT_NAME := cm_lt023g
+PRODUCT_NAME := lineage_lt023g
 PRODUCT_BRAND := Samsung
 PRODUCT_MODEL := SM-T211
 PRODUCT_MANUFACTURER := samsung
