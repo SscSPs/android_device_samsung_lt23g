@@ -124,19 +124,10 @@ PRODUCT_PACKAGES += \
     audio.a2dp.default \
     audio.r_submix.default
 
-# Keylayouts
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/keylayout/88pm80x_on.kl:system/usr/keylayout/88pm80x_on.kl \
-    $(LOCAL_PATH)/configs/keylayout/88pm800_hook_vol.kl:system/usr/keylayout/88pm800_hook_vol.kl \
-    $(LOCAL_PATH)/configs/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
-    $(LOCAL_PATH)/configs/keylayout/sec_touchscreen.kl:system/usr/keylayout/sec_touchscreen.kl
-
 # Media Config
 PRODUCT_COPY_FILES += \
 		frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
-		frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
-		$(LOCAL_PATH)/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
-		$(LOCAL_PATH)/configs/media/media_profiles.xml:system/etc/media_profiles.xml
+		frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
 
 # OMX
 PRODUCT_PACKAGES += \
@@ -158,11 +149,6 @@ PRODUCT_PACKAGES += \
     MarvellWirelessDaemon \
     wpa_supplicant \
     wpa_supplicant.conf
-
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
-    $(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
-
 
 
 #
