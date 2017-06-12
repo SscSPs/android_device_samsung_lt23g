@@ -5,23 +5,34 @@ $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 $(call inherit-product, build/target/product/full.mk)
 
-$(call inherit-product-if-exists, vendor/samsung/lt023g/lt023g-vendor.mk)
+$(call inherit-product, vendor/samsung/lt023g/lt023g-vendor.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/samsung/lt023g/overlay
 
-#hack for prebult kernel
-LOCAL_PATH := device/samsung/lt023g
-ifeq ($(TARGET_PREBUILT_KERNEL),)
-	LOCAL_KERNEL := $(LOCAL_PATH)/kernel
-else
-	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-endif
-PRODUCT_COPY_FILES += \
-    $(LOCAL_KERNEL):kernel
+# Enable higher-res drawables while keeping mdpi as primary source
+PRODUCT_AAPT_CONFIG := large mdpi hdpi xhdpi
+PRODUCT_AAPT_PREF_CONFIG := mdpi
+PRODUCT_LOCALES += mdpi
 
-PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
-PRODUCT_NAME := full_lt023g
-PRODUCT_DEVICE := lt023g
+# we have enough storage space to hold precise GC data
+PRODUCT_TAGS += dalvik.gc.type-precise
+
+# Set property overrides
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.zygote.disable_gl_preload=true \
+    ro.cm.hardware.cabc=/sys/class/mdnie/mdnie/cabc \
+    ro.bq.gpu_to_cpu_unsupported=1 \
+    wifi.interface=wlan0 \
+    wifi.supplicant_scan_interval=30 \
+    dalvik.vm.heapsize=128m
+
+DEFAULT_PROPERTY_OVERRIDES += \
+    ro.secure=0 \
+    ro.allow.mock.location=1 \
+    ro.debuggable=1 \
+    persist.service.adb.enable=1 \
+    persist.sys.usb.config=mtp,adb \
+    sys.disable_ext_animation=1
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -39,43 +50,93 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.sip.xml:system/etc/permissions/android.software.sip.xml	\
     frameworks/native/data/etc/tablet_core_hardware.xml:system/etc/permissions/tablet_core_hardware.xml
 
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-		    persist.sys.usb.config=mtp
-
-# Boot animation
-TARGET_SCREEN_HEIGHT := 1024
-TARGET_SCREEN_WIDTH  := 600
-
-$(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
-
-# Audio
-PRODUCT_PACKAGES += \
-    audio.a2dp.default \
-    audio.r_submix.default
-
-# Audio configuration
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
-    $(LOCAL_PATH)/audio/audio_effects.conf:system/etc/audio_effects.conf
-
 # Charger
 PRODUCT_PACKAGES += \
     charger \
     charger_res_images
 
+# Graphics config
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/graphics/gfx.cfg:system/etc/gfx.cfg \
+    $(LOCAL_PATH)/configs/graphics/dms.cfg:system/etc/dms.cfg
+
+# fstab:
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/fstab.pxa988:root/fstab.pxa988 \
+    $(LOCAL_PATH)/rootdir/extra.fstab:recovery/root/etc/extra.fstab \
+    $(LOCAL_PATH)/rootdir/twrp.fstab:recovery/root/etc/twrp.fstab
+
+# init.rc's:
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/init.recovery.pxa988.rc:root/init.recovery.pxa988.rc \
+    $(LOCAL_PATH)/rootdir/init.pxa988.rc:root/init.pxa988.rc \
+    $(LOCAL_PATH)/rootdir/init.pxa988.usb.rc:root/init.pxa988.usb.rc \
+    $(LOCAL_PATH)/rootdir/init.pxa988.tel.rc:root/init.pxa988.tel.rc
+
+# Init files
+PRODUCT_PACKAGES += \
+    fstab.pxa988 \
+    init.pxa988.rc \
+    init.pxa988.usb.rc \
+    ueventd.pxa988.rc
+
+# uevent.rc
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/rootdir/ueventd.pxa988.rc:root/ueventd.pxa988.rc
+
+# Audio configuration
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/audio/audio_policy.conf:system/etc/audio_policy.conf \
+    $(LOCAL_PATH)/configs/audio/audio_effects.conf:system/etc/audio_effects.conf
+
+# Product specific Packages
+PRODUCT_PACKAGES += \
+    libsecril-client \
+    rfkill \
+    libMarvellWireless \
+    libwpa_client
+
+# Disable SELinux
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.boot.selinux=disabled
+
+# GPS
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/configs/gps/sirfgps.conf:system/etc/sirfgps.conf
+
+# Misc
+PRODUCT_PACKAGES += \
+    com.android.future.usb.accessory
+
+# Live Wallpapers
+PRODUCT_PACKAGES += \
+    LiveWallpapers \
+    LiveWallpapersPicker \
+    VisualizationWallpapers \
+    librs_jni
+
+
+##
+## Others
+##
+# Audio
+PRODUCT_PACKAGES += \
+    audio.a2dp.default \
+    audio.r_submix.default
+
 # Keylayouts
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/keylayout/88pm80x_on.kl:system/usr/keylayout/88pm80x_on.kl \
-    $(LOCAL_PATH)/keylayout/88pm800_hook_vol.kl:system/usr/keylayout/88pm800_hook_vol.kl \
-    $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
-    $(LOCAL_PATH)/keylayout/sec_touchscreen.kl:system/usr/keylayout/sec_touchscreen.kl
+    $(LOCAL_PATH)/configs/keylayout/88pm80x_on.kl:system/usr/keylayout/88pm80x_on.kl \
+    $(LOCAL_PATH)/configs/keylayout/88pm800_hook_vol.kl:system/usr/keylayout/88pm800_hook_vol.kl \
+    $(LOCAL_PATH)/configs/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl \
+    $(LOCAL_PATH)/configs/keylayout/sec_touchscreen.kl:system/usr/keylayout/sec_touchscreen.kl
 
 # Media Config
 PRODUCT_COPY_FILES += \
 		frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
 		frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml \
-		$(LOCAL_PATH)/media/media_codecs.xml:system/etc/media_codecs.xml \
-		$(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml
+		$(LOCAL_PATH)/configs/media/media_codecs.xml:system/etc/media_codecs.xml \
+		$(LOCAL_PATH)/configs/media/media_profiles.xml:system/etc/media_profiles.xml
 
 # OMX
 PRODUCT_PACKAGES += \
@@ -91,19 +152,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
 
-# fstab:
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/fstab.pxa988:root/fstab.pxa988 \
-    $(LOCAL_PATH)/rootdir/extra.fstab:recovery/root/etc/extra.fstab \
-    $(LOCAL_PATH)/rootdir/twrp.fstab:recovery/root/etc/twrp.fstab
-
-# init.rc's:
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/init.recovery.pxa988.rc:root/init.recovery.pxa988.rc \
-    $(LOCAL_PATH)/rootdir/init.pxa988.rc:root/init.pxa988.rc \
-    $(LOCAL_PATH)/rootdir/init.pxa988.usb.rc:root/init.pxa988.usb.rc \
-    $(LOCAL_PATH)/rootdir/init.pxa988.tel.rc:root/init.pxa988.tel.rc
-
 # Wifi
 PRODUCT_PACKAGES += \
     hostapd \
@@ -112,9 +160,29 @@ PRODUCT_PACKAGES += \
     wpa_supplicant.conf
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
-    $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
+    $(LOCAL_PATH)/configs/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf \
+    $(LOCAL_PATH)/configs/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf
 
-# uevent.rc
+
+
+#
+# Set wifi-only before it's set by generic_no_telephony.mk
+$(call inherit-product, build/target/product/full_base.mk)
+
+$(call inherit-product, frameworks/native/build/tablet-7in-hdpi-1024-dalvik-heap.mk)
+$(call inherit-product-if-exists, vendor/marvell/generic/sd8787/FwImage/sd8787fw.mk)
+$(call inherit-product-if-exists, vendor/marvell/generic/sd8787/sd8787.mk)
+$(call inherit-product-if-exists, vendor/marvell/generic/sd8787/sd8787_modules.mk)
+
+
+
+
+#hack for prebult kernel
+LOCAL_PATH := device/samsung/lt023g
+ifeq ($(TARGET_PREBUILT_KERNEL),)
+	LOCAL_KERNEL := $(LOCAL_PATH)/kernel
+else
+	LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
+endif
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/rootdir/ueventd.pxa988.rc:root/ueventd.pxa988.rc
+    $(LOCAL_KERNEL):kernel

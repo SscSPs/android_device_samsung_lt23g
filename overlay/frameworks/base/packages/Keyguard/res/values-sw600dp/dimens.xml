@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 /*
-** Copyright 2009, The Android Open Source Project
+** Copyright 2011, The Android Open Source Project
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -16,13 +16,10 @@
 ** limitations under the License.
 */
 -->
+<resources>
+    <!-- Height of the sliding KeyguardSecurityContainer (includes 2x keyguard_security_view_margin) -->
+    <dimen name="keyguard_security_height">440dp</dimen>
 
-<!-- These resources are around just to allow their values to be customized
-     for different hardware and product builds. -->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-
-    <!-- Whether we're using the tablet-optimized recents interface (we use this
-     value at runtime for some things) -->
-    <bool name="config_recents_interface_for_tablets">true</bool>
-
+    <!-- Height of the sliding KeyguardSecurityContainer with hidden widget (includes 2x keyguard_security_view_margin) -->
+    <dimen name="keyguard_security_no_widget_height">440dp</dimen>
 </resources>
