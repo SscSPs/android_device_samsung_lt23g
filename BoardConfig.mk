@@ -139,6 +139,9 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/class/android_usb/f_mass_storage/lun%d/
 ENABLE_WEBGL := true
 TARGET_FORCE_CPU_UPLOAD := true
 
+# Bluetooth
+BOARD_HAVE_BLUETOOTH := true
+USE_BLUETOOTH_SAP := false
 
 # SELinux
 #BOARD_SEPOLICY_DIRS += \
