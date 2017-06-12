@@ -42,7 +42,7 @@ BOARD_KERNEL_BASE := 0x10000000
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000
 BOARD_KERNEL_PAGESIZE := 2048
 TARGET_KERNEL_SOURCE := kernel/samsung/lt02
-TARGET_KERNEL_CONFIG := pxa986_lt023g_blackhawk_defconfig
+TARGET_KERNEL_CONFIG := pxa986_lt023g_werewolf_defconfig
 ##prebuilt kernel in case of no source
 TARGET_PREBUILT_KERNEL := device/samsung/lt023g/kernel
 
