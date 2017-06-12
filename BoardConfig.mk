@@ -72,7 +72,7 @@ CHARGING_ENABLED_PATH := "/sys/class/power_supply/battery/batt_lp_charging"
 BOARD_HARDWARE_CLASS += hardware/samsung/cmhw
 
 # Malloc
-MALLOC_IMPL := dlmalloc
+MALLOC_SVELTE := true
 
 # MRVL
 BOARD_USES_MARVELL_HWC_ENHANCEMENT := true
