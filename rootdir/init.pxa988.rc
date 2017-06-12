@@ -754,3 +754,6 @@ on property:ro.bootmode=charger
 service charger /charger
     class charger
     user root
+
+on property:sys.recovery_done=1
+        exec clear_recovery_mode
