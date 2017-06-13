@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-
+LOCAL_PATH := device/samsung/lt023g
 
 #Target info
 USE_CAMERA_STUB := true
@@ -25,7 +25,7 @@ BOARD_USES_MRVL_HARDWARE := true
 -include vendor/samsung/lt023g/BoardConfigVendor.mk
 
 # Not Yet
-#TARGET_BOARD_INFO_FILE := device/samsung/lt023g/board-info.txt
+#TARGET_BOARD_INFO_FILE := $(LOCAL_PATH)/board-info.txt
 
 # Architecture
 TARGET_NO_BOOTLOADER := true
@@ -62,7 +62,7 @@ BOARD_KERNEL_BASE := 0x10000000
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000
 BOARD_KERNEL_PAGESIZE := 2048
 ##prebuilt kernel in case of no source
-TARGET_PREBUILT_KERNEL := device/samsung/lt023g/kernel
+TARGET_PREBUILT_KERNEL := $(LOCAL_PATH)/kernel
 
 # Partitions
 TARGET_USERIMAGES_USE_EXT4 := true
@@ -77,11 +77,11 @@ BOARD_HAS_NO_MISC_PARTITION := true
 
 # Recovery
 TARGET_RECOVERY_PIXEL_FORMAT := "RGB_565"
-TARGET_RECOVERY_FSTAB := device/samsung/lt023g/rootdir/fstab.pxa988
+TARGET_RECOVERY_FSTAB := $(LOCAL_PATH)/rootdir/fstab.pxa988
 RECOVERY_FSTAB_VERSION := 2
 BOARD_RECOVERY_SWIPE := true
-#TARGET_RECOVERY_DEVICE_DIRS += device/samsung/lt023g
-#TARGET_RECOVERY_INITRC := device/samsung/lt023g/rootdir/init.pxa988.rc
+#TARGET_RECOVERY_DEVICE_DIRS += $(LOCAL_PATH)
+#TARGET_RECOVERY_INITRC := $(LOCAL_PATH)/rootdir/init.pxa988.rc
 #TARGET_USERIMAGES_USE_EXT4 := true
 
 # Init
@@ -121,7 +121,7 @@ VSYNC_EVENT_PHASE_OFFSET_NS := 0
 BOARD_HAVE_PIXEL_FORMAT_INFO := true
 BOARD_USE_BGRA_8888 := true
 USE_OPENGL_RENDERER := true
-BOARD_EGL_CFG := device/samsung/lt023g/configs/egl.cfg
+BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
 #COMMON_GLOBAL_FLAGS += -DSK_SUPPORT_LEGACY_SETCONFIG
 
 # Audio
@@ -166,9 +166,9 @@ BACKLIGHT_PATH := "/sys/class/backlight/panel/brightness"
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
 BOARD_CHARGER_SHOW_PERCENTAGE := true
 CHARGING_ENABLED_PATH := "/sys/class/power_supply/battery/batt_lp_charging"
-#BOARD_CHARGER_RES := device/samsung/lt023g/res/charger
+#BOARD_CHARGER_RES := $(LOCAL_PATH)/res/charger
 
-TARGET_SPECIFIC_HEADER_PATH := device/samsung/lt023g/include
+TARGET_SPECIFIC_HEADER_PATH := $(LOCAL_PATH)/include
 
 # Sec_touchscreen
 INPUT_TOUCH_DRIVER := TOUCH_LT
@@ -203,7 +203,7 @@ TARGET_BOOTANIMATION_PRELOAD := true
 TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 
 # CMHW
-BOARD_HARDWARE_CLASS += hardware/samsung/cmhw
+BOARD_HARDWARE_CLASS += $(LOCAL_PATH)/cmhw
 
 # Malloc
 MALLOC_SVELTE := true

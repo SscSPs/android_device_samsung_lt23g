@@ -7,7 +7,8 @@ $(call inherit-product, build/target/product/full.mk)
 
 $(call inherit-product, vendor/samsung/lt023g/lt023g-vendor.mk)
 
-DEVICE_PACKAGE_OVERLAYS += device/samsung/lt023g/overlay
+LOCAL_PATH := device/samsung/lt023g
+DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # Enable higher-res drawables while keeping mdpi as primary source
 PRODUCT_AAPT_CONFIG := large mdpi hdpi xhdpi
@@ -164,7 +165,6 @@ $(call inherit-product-if-exists, vendor/marvell/generic/sd8787/sd8787_modules.m
 
 
 #hack for prebult kernel
-LOCAL_PATH := device/samsung/lt023g
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 	LOCAL_KERNEL := $(LOCAL_PATH)/kernel
 else
