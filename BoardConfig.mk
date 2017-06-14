@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-LOCAL_PATH := device/samsung/lt023g 
+LOCAL_PATH := device/samsung/lt023g
 
 #Target info
 USE_CAMERA_STUB := true
@@ -44,14 +44,8 @@ ARCH_ARM_HAVE_TLS_REGISTER := true
 #Assert
 TARGET_OTA_ASSERT_DEVICE := lt023g,lt02,SM-T211
 
-# Flags (might need to be removed)
-COMMON_GLOBAL_CFLAGS += -DMRVL_HARDWARE
-COMMON_GLOBAL_CFLAGS += -DNO_RGBX_8888
-TARGET_GLOBAL_CFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
-TARGET_GLOBAL_CPPFLAGS += -mtune=cortex-a9 -mfpu=neon -mfloat-abi=softfp
-COMMON_GLOBAL_CFLAGS += -DBOARD_EGL_NEEDS_LEGACY_FB
-COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
-COMMON_GLOBAL_CFLAGS += -DSAMSUNG_DVFS
+# Flags (removed, shifted to vendor files.)
+INCLUDE_MARVELL_FLAGS := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
 # Kernel
@@ -127,7 +121,6 @@ BOARD_EGL_CFG := $(LOCAL_PATH)/configs/egl.cfg
 # Audio
 BOARD_USES_ALSA_AUDIO := true
 BUILD_WITH_ALSA_UTILS := true
-COMMON_GLOBAL_CFLAGS += -DMR0_AUDIO_BLOB -DMR1_AUDIO_BLOB
 BOARD_HAVE_PRE_KITKAT_AUDIO_BLOB := true
 
 # Webkit
