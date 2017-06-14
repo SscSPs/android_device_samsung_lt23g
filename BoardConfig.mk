@@ -83,7 +83,7 @@ TARGET_PROVIDES_INIT := true
 TARGET_PROVIDES_INIT_TARGET_RC := true
 
 # Bluetooth
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/lt02wifi/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(LOCAL_PATH)/bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_MRVL := true
 MRVL_WIRELESS_DAEMON_API := true
@@ -171,7 +171,7 @@ SENSORS_NEED_SETRATE_ON_ENABLE := true
 
 # SELinux
 BOARD_SEPOLICY_DIRS += \
-    device/samsung/lt02wifi/sepolicy
+    $(LOCAL_PATH)/sepolicy
 
 BOARD_SEPOLICY_UNION += \
     file_contexts \
