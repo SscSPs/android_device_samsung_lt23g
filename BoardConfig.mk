@@ -173,20 +173,6 @@ SENSORS_NEED_SETRATE_ON_ENABLE := true
 BOARD_SEPOLICY_DIRS += \
     $(LOCAL_PATH)/sepolicy
 
-BOARD_SEPOLICY_UNION += \
-    file_contexts \
-    device.te \
-    dhcp.te \
-    file.te \
-    init.te \
-    mediaserver.te \
-    netmgrd.te \
-    rild.te \
-    secril.te \
-    system.te \
-    ueventd.te \
-    wpa_supplicant.te
-
 ##
 ## Extras
 ##
