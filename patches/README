@@ -1,0 +1,10 @@
+This is patch directory
+
+cd WORKING_DIR
+sh device/samsung/lt023g/patches/install.sh
+sh device/samsung/lt023g/patches/uninstall.sh
+
+Currently, patches these projects:
+1. hardware/libhardware_legacy
+
+More patches will come. 
