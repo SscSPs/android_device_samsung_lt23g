@@ -44,7 +44,7 @@ ARCH_ARM_HAVE_TLS_REGISTER := true
 #Assert
 TARGET_OTA_ASSERT_DEVICE := lt023g,lt02,SM-T211
 
-# Flags (removed, shifted to vendor files.)
+# Flags (removed, shifted to vendor files. INCLUDE_MARVELL_FLAGS present in vendor )
 INCLUDE_MARVELL_FLAGS := true
 NUM_FRAMEBUFFER_SURFACE_BUFFERS := 3
 
@@ -193,6 +193,7 @@ BOARD_USES_MARVELL_HWC_ENHANCEMENT := true
 
 
 #TWRP
+TW_THEME := landscape_mdpi
 DEVICE_RESOLUTION := 1024x600
 RECOVERY_SDCARD_ON_DATA := true
 TW_INTERNAL_STORAGE_PATH := "/data/media"
